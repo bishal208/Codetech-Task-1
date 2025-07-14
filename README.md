@@ -16,30 +16,30 @@ It demonstrates a typical data preprocessing flow, including handling numeric & 
 
 ---
 
-## ðŸ“„ Features
+## Features
 
-âœ… Loads a dataset (Iris dataset with a synthetic categorical feature for demonstration).  
-âœ… Identifies numeric and categorical columns automatically.  
-âœ… Handles missing values (imputation).  
-âœ… Scales numeric data (standardization).  
-âœ… Encodes categorical data (one-hot encoding).  
-âœ… Splits data into training and testing sets.  
-âœ… Saves the transformed datasets and the preprocessing pipeline to disk.
-
----
-## ðŸ“„ Features
-
-âœ… Loads a dataset (Iris dataset with a synthetic categorical feature for demonstration).  
-âœ… Identifies numeric and categorical columns automatically.  
-âœ… Handles missing values (imputation).  
-âœ… Scales numeric data (standardization).  
-âœ… Encodes categorical data (one-hot encoding).  
-âœ… Splits data into training and testing sets.  
-âœ… Saves the transformed datasets and the preprocessing pipeline to disk.
+- Loads a dataset (Iris dataset with a synthetic categorical feature for demonstration).  
+- Identifies numeric and categorical columns automatically.  
+- Handles missing values (imputation).  
+- Scales numeric data (standardization).  
+- Encodes categorical data (one-hot encoding).  
+- Splits data into training and testing sets.  
+- Saves the transformed datasets and the preprocessing pipeline to disk.
 
 ---
+## Features
 
-## ðŸš€ Getting Started
+- Loads a dataset (Iris dataset with a synthetic categorical feature for demonstration).  
+- Identifies numeric and categorical columns automatically.  
+- Handles missing values (imputation).  
+- Scales numeric data (standardization).  
+- Encodes categorical data (one-hot encoding).  
+- Splits data into training and testing sets.  
+- Saves the transformed datasets and the preprocessing pipeline to disk.
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
@@ -57,34 +57,34 @@ python etl_pipeline.py
 ```
 
 ---
-## ðŸ“ Output Files
+## Output Files
 
 After running, the following files will be generated in the current directory:
 
-- `X_train_processed.npy` â€” Preprocessed training features.
-- `X_test_processed.npy` â€” Preprocessed test features.
-- `y_train.csv` â€” Training labels.
-- `y_test.csv` â€” Test labels.
-- `preprocessing_pipeline.joblib` â€” Saved scikit-learn pipeline for reuse.
+- `X_train_processed.npy` : Preprocessed training features.
+- `X_test_processed.npy` : Preprocessed test features.
+- `y_train.csv` : Training labels.
+- `y_test.csv` : Test labels.
+- `preprocessing_pipeline.joblib` : Saved scikit-learn pipeline for reuse.
 
 ---
 
-## ðŸ“‚ Code Structure
+## Code Structure
 
-- `etl_pipeline.py` â€” Main script containing the ETL pipeline logic.
-- `README.md` â€” Project documentation.
-
----
-
-## ðŸ“š Technologies Used
-
-- [pandas](https://pandas.pydata.org/) â€” Data manipulation.
-- [scikit-learn](https://scikit-learn.org/) â€” Preprocessing, pipelines, train-test splitting.
-- [numpy](https://numpy.org/) â€” Saving transformed arrays.
-- [joblib](https://joblib.readthedocs.io/) â€” Persisting pipeline.
+- `etl_pipeline.py` : Main script containing the ETL pipeline logic.
+- `README.md` : Project documentation.
 
 ---
-## ðŸ”— Notes
+
+## Technologies Used
+
+- [pandas](https://pandas.pydata.org/) : Data manipulation.
+- [scikit-learn](https://scikit-learn.org/) : Preprocessing, pipelines, train-test splitting.
+- [numpy](https://numpy.org/) : Saving transformed arrays.
+- [joblib](https://joblib.readthedocs.io/) : Persisting pipeline.
+
+---
+## Notes
 
 - By default, the script uses the Iris dataset from `sklearn.datasets` and adds a dummy categorical feature (`category`) for demonstration.
 - You can modify the script to read your own dataset by replacing the dataset loading section with:
