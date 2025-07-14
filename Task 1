@@ -1,0 +1,84 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.datasets import load_iris
+import numpy as np
+import joblib
+
+# Load the iris dataset as a DataFrame
+iris = load_iris(as_frame=True)
+df = iris.frame
+
+print("\n=== Raw Data Sample ===")
+print(df.head())
+
+# Add a sample categorical feature for demonstration
+# (This is just for showing categorical preprocessing)
+df['category'] = ['A', 'B', 'C'] * 50
+
+# Identify numeric columns (float64, int64)
+numeric_features = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
+# Identify categorical columns (object or category dtype)
+categorical_features = df.select_dtypes(include=['object', 'category']).columns.tolist()
+print("\nNumeric Features:", numeric_features)
+print("Categorical Features:", categorical_features)
+
+# Create a pipeline for numeric data:
+# 1) Impute missing values using mean
+# 2) Scale features using StandardScaler (zero mean, unit variance)
+numeric_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='mean')),
+    ('scaler', StandardScaler())
+])
+
+# Create a pipeline for categorical data:
+# 1) Impute missing values using most frequent category
+# 2) Apply OneHotEncoder to convert categories into binary columns
+categorical_transformer = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('onehot', OneHotEncoder(handle_unknown='ignore'))
+])
+
+# Combine both transformers into a ColumnTransformer
+# Applies the numeric_transformer to numeric columns and categorical_transformer to categorical columns
+preprocessor = ColumnTransformer(transformers=[
+    ('num', numeric_transformer, numeric_features),
+    ('cat', categorical_transformer, categorical_features)
+])
+# Create a full pipeline with the preprocessor
+pipeline = Pipeline(steps=[
+    ('preprocessor', preprocessor)
+])
+
+# Split the data into features (X) and target variable (y)
+X = df.drop(columns=['target'])
+y = df['target']
+
+# Split into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Fit the pipeline on training data and transform it
+X_train_processed = pipeline.fit_transform(X_train)
+# Transform test data (do not fit again)
+X_test_processed = pipeline.transform(X_test)
+
+print("\n=== Transformed Training Data Shape ===")
+print(X_train_processed.shape)
+
+print("\n=== Transformed Test Data Shape ===")
+print(X_test_processed.shape)
+
+# Save processed data and pipeline for later use
+# Save numpy arrays for transformed features
+np.save('X_train_processed.npy', X_train_processed)
+np.save('X_test_processed.npy', X_test_processed)
+# Save targets as CSV
+y_train.to_csv('y_train.csv', index=False)
+y_test.to_csv('y_test.csv', index=False)
+# Save the fitted preprocessing pipeline
+joblib.dump(pipeline, 'preprocessing_pipeline.joblib')
+
+print("\nETL Process completed and files saved.")
